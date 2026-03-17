@@ -110,10 +110,19 @@
       const clicks = q === 1 ? noClicks1 : noClicks2;
 
       if (clicks < 2) {
-        const x = Math.random() * (window.innerWidth - 100);
-        const y = Math.random() * (window.innerHeight - 100);
+        const padding = 20; // keep some margin from edges
 
-        btn.style.position = "absolute";
+        const btnRect = btn.getBoundingClientRect();
+        const btnWidth = btnRect.width || 100;
+        const btnHeight = btnRect.height || 40;
+
+        const maxX = window.innerWidth - btnWidth - padding;
+        const maxY = window.innerHeight - btnHeight - padding;
+
+        const x = Math.max(padding, Math.random() * maxX);
+        const y = Math.max(padding, Math.random() * maxY);
+
+        btn.style.position = "fixed"; // better for mobile viewport
         btn.style.left = x + "px";
         btn.style.top = y + "px";
 
