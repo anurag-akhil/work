@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advance Happy Birthday 😄</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    h1 {
+      margin-top: 40px;
+      font-size: 2.2rem;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    .container {
+      margin-top: 20px;
+      position: relative;
+    }
+
+    button {
+      padding: 12px 22px;
+      margin: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 12px;
+      border: none;
+    }
+
+    .yes {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .no {
+      background-color: #f44336;
+      color: white;
+      position: relative;
+    }
+
+    img {
+      margin-top: 15px;
+      width: 200px;
+      display: none;
+    }
+
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: gold;
+      top: 0;
+      animation: fall 3s linear forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎉 Advance Happy Birthday! 🎂</h1>
+
+  <div class="container" id="q1">
+    <h2>Will you accept a gift from me? 🎁✨</h2>
+    <button class="yes" onclick="giftYes()">Yes 💛</button>
+    <button class="no" id="no1">No 😒</button>
+    <br />
+    <!--<img id="giftHappy" src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" />-->
+    <!--<img id="giftCry" src="https://media.giphy.com/media/ROF8OQvDmxytW/giphy.gif" />-->
+    
+    <img id="giftHappy" src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExd3RwOG1va2NqNWUweHVwOHRxdW55MWNmZnpoNTg0MDhjbWRkNWNlaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/T7Qx28nEdo9NK/giphy.gif" />
+    <img id="giftHappy2" src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdGpmcjB4dzRqYmh2ZXFocGZiNXk5Z2hkOHowc3BubzcwdW52MHhsbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IpcddHV2Dmug8ALMNR/giphy.gif">
+    <img id="giftCry" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGVtMTJnZTZ0ZTM2anEzdG1wejJ4bm5ycW1kaTZzbXAzZ3B0ZXd5MCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/10tIjpzIu8fe0/giphy.gif" />
+  </div>
+
+  <div class="container" id="q2" style="display:none;">
+    <h2>Will you give me a party? 🎉</h2>
+    <button class="yes" onclick="partyYes()">Yes 😄</button>
+    <button class="no" id="no2">No 🙄</button>
+    <br />
+    <img id="partyHappy" src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" />
+    <img id="partyCry" src="https://media.giphy.com/media/OPU6wzx8JrHna/giphy.gif" />
+  </div>
+
+  <script>
+    let noClicks1 = 0;
+    let noClicks2 = 0;
+
+    const noBtn1 = document.getElementById("no1");
+    const noBtn2 = document.getElementById("no2");
+
+    function moveButton(btn, q) {
+      const clicks = q === 1 ? noClicks1 : noClicks2;
+
+      if (clicks < 2) {
+        const x = Math.random() * (window.innerWidth - 100);
+        const y = Math.random() * (window.innerHeight - 100);
+
+        btn.style.position = "absolute";
+        btn.style.left = x + "px";
+        btn.style.top = y + "px";
+
+        if (q === 1) noClicks1++;
+        else noClicks2++;
+      } else {
+        if (q === 1) document.getElementById("giftCry").style.display = "block";
+        else document.getElementById("partyCry").style.display = "block";
+      }
+    }
+
+    // MOBILE + DESKTOP SUPPORT
+    function attachEscape(btn, q) {
+      btn.addEventListener("mouseover", () => moveButton(btn, q));
+      btn.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        moveButton(btn, q);
+      });
+    }
+
+    attachEscape(noBtn1, 1);
+    attachEscape(noBtn2, 2);
+
+    function createConfetti() {
+      for (let i = 0; i < 25; i++) {
+        const div = document.createElement("div");
+        div.classList.add("confetti");
+        div.style.left = Math.random() * window.innerWidth + "px";
+        document.body.appendChild(div);
+
+        setTimeout(() => div.remove(), 3000);
+      }
+    }
+
+    function giftYes() {
+        document.getElementById("giftCry").style.display = "none";
+      document.getElementById("giftHappy").style.display = "block";
+      document.getElementById("giftHappy2").style.display = "block";
+      createConfetti();
+
+      setTimeout(() => {
+        document.getElementById("giftCry").style.display = "none";
+      document.getElementById("giftHappy").style.display = "none";
+      document.getElementById("giftHappy2").style.display = "none";
+      document.getElementById("q1").style.display = "none";
+        document.getElementById("q2").style.display = "block";
+      }, 2000);
+    }
+
+    function partyYes() {
+        document.getElementById("partyCry").style.display = "none";
+      document.getElementById("partyHappy").style.display = "block";
+      createConfetti();
+    }
+  </script>
+
+</body>
+</html>
+ 
